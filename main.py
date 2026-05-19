@@ -136,7 +136,8 @@ def get_forecast(ticker: str = "GC=F"):
     # ==========================================
     
     # [提供給頁籤一] 過去一年的歷史軌跡
-    history_1y_df = raw_data.last('365D')
+    one_year_ago = raw_data.index[-1] - pd.Timedelta(days=365)
+    history_1y_df = raw_data.loc[one_year_ago:]
     history_1y = {
         "dates": history_1y_df.index.strftime('%Y-%m-%d').tolist(),
         "prices": history_1y_df['Target'].astype(float).round(2).tolist()
